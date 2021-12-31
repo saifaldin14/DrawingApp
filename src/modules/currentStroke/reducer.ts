@@ -12,7 +12,7 @@ const initialState: RootState["currentStroke"] = {
   color: "#000",
 };
 
-export const rootReducer = (
+export const reducer = (
   state: RootState["currentStroke"] = initialState,
   action: Action
 ) => {
