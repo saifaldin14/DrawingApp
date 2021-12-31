@@ -10,7 +10,7 @@ const initialState: ModalState = {
   modalName: null,
 };
 
-const slice = createSlice({
+const modalVisible = createSlice({
   name: "modal",
   initialState,
   reducers: {
@@ -25,5 +25,5 @@ const slice = createSlice({
   },
 });
 
-export const modalVisible = slice.reducer;
-export const { show, hide } = slice.actions;
+export default modalVisible.reducer;
+export const { show, hide } = modalVisible.actions;
