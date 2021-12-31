@@ -33,3 +33,7 @@ export const updateStroke = (x: number, y: number) => {
 export const endStroke = () => {
   return { type: END_STROKE };
 };
+
+export const setStrokeColor = (color: string) => {
+  return { type: SET_STROKE_COLOR, payload: color };
+};
