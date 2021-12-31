@@ -42,7 +42,8 @@ export const rootReducer = (
         strokes: {},
       };
     }
-    default:
+    default: {
       return state;
+    }
   }
 };
