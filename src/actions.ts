@@ -15,5 +15,16 @@ export type Action =
     }
   | {
       type: typeof END_STROKE;
-      payload: Point;
     };
+
+export const beginStroke = (x: number, y: number) => {
+  return { type: BEGIN_STROKE, payload: { x, y } };
+};
+
+export const updateStroke = (x: number, y: number) => {
+  return { type: UPDATE_STROKE, payload: { x, y } };
+};
+
+export const endStroke = (x: number, y: number) => {
+  return { type: END_STROKE };
+};
