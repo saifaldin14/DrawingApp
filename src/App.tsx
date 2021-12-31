@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { beginStroke, endStroke, updateStroke } from "./actions";
+import { drawStroke } from "./canvasUtils";
 import { currentStrokeSelector } from "./selectors";
 
 function App() {
