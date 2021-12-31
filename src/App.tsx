@@ -30,6 +30,10 @@ function App() {
     dispatch(updateStroke(offsetX, offsetY));
   };
 
+  const getCanvasWithContext = (canvas = canvasRef.current) => {
+    return { canvas, context: canvas?.getContext("2d") };
+  };
+
   return (
     <canvas
       onMouseDown={startDrawing}
