@@ -27,6 +27,7 @@ const COLORS = [
   "#87CEEB",
   "#87CEFA",
   "#8A2BE2",
-];
+]
 
-export default COLORS;
+export default COLORS
+

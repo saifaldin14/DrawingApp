@@ -1,16 +1,16 @@
 import { useCanvas } from "./CanvasContext";
 import { saveAs } from "file-saver";
-import { getCanvasImage } from "./canvasUtils";
+import { getCanvasImage } from "../utils/canvasUtils";
 
 export const FilePanel = (): JSX.Element => {
-  const canvasRef = useCanvas();
+  const canvasRef = useCanvas()
 
   const exportToFile = async () => {
-    const file = await getCanvasImage(canvasRef.current);
-    if (!file) return;
+    const file = await getCanvasImage(canvasRef.current)
+    if (!file) return
 
-    saveAs(file, "canvas.png");
-  };
+    saveAs(file, 'canvas.png')
+  }
 
   return (
     <div className="window file">
@@ -19,11 +19,9 @@ export const FilePanel = (): JSX.Element => {
       </div>
       <div className="window-body">
         <div className="field-row">
-          <button className="save-button" onClick={exportToFile}>
-            Export
-          </button>
+          <button className="save-button" onClick={exportToFile}>Export</button>
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
