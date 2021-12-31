@@ -1,78 +1,67 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { beginStroke, updateStroke } from "../slice/current";
-import { endStroke } from "../actions";
-import {
-  strokesSelector,
-  currentStrokeSelector,
-  historyIndexSelector,
-} from "../selectors";
-import { clearCanvas, drawStroke } from "../utils/canvasUtils";
-import { useCanvas } from "./CanvasContext";
-import { ColorPanel } from "./ColorPanel";
-import { EditPanel } from "./EditPanel";
-import { FilePanel } from "./FilePanel";
-import { ModalLayer } from "./ModalLayer";
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { beginStroke, updateStroke } from '../slice/current';
+import { endStroke } from '../actions';
+import { strokesSelector, currentStrokeSelector, historyIndexSelector } from '../selectors';
+import { clearCanvas, drawStroke } from '../utils/canvasUtils';
+import { useCanvas } from './CanvasContext';
+import { ColorPanel } from './ColorPanel';
+import { EditPanel } from './EditPanel';
+import { FilePanel } from './FilePanel';
 
 export default function App(): JSX.Element {
-  const canvasRef = useCanvas();
-  const currentStroke = useSelector(currentStrokeSelector);
-  const strokes = useSelector(strokesSelector);
-  const historyIndex = useSelector(historyIndexSelector);
-  const dispatch = useDispatch();
+  const canvasRef = useCanvas()
+  const currentStroke = useSelector(currentStrokeSelector)
+  const strokes = useSelector(strokesSelector)
+  const historyIndex = useSelector(historyIndexSelector)
+  const dispatch = useDispatch()
 
-  const isDrawing = !!currentStroke.points.length;
+  const isDrawing = !!currentStroke.points.length
 
   const getCanvasWithContext = (canvas = canvasRef.current) => ({
     canvas,
-    context: canvas?.getContext("2d"),
-  });
+    context: canvas?.getContext('2d'),
+  })
 
   useEffect(() => {
-    const { context } = getCanvasWithContext();
-    if (!context) return;
+    const { context } = getCanvasWithContext()
+    if (!context) return
 
-    requestAnimationFrame(() =>
-      drawStroke(context, currentStroke.points, currentStroke.color)
-    );
-  }, [currentStroke]);
+    requestAnimationFrame(() => drawStroke(context, currentStroke.points, currentStroke.color))
+  }, [currentStroke])
 
   useEffect(() => {
-    const { canvas, context } = getCanvasWithContext();
-    if (!context || !canvas) return;
+    const { canvas, context } = getCanvasWithContext()
+    if (!context || !canvas) return
 
     requestAnimationFrame(() => {
-      clearCanvas(canvas);
+      clearCanvas(canvas)
       strokes.slice(0, strokes.length - historyIndex).forEach((stroke) => {
-        drawStroke(context, stroke.points, stroke.color);
-      });
-    });
-  }, [historyIndex]);
+        drawStroke(context, stroke.points, stroke.color)
+      })
+    })
+  }, [historyIndex])
 
-  const startDrawing = ({
-    nativeEvent,
-  }: React.MouseEvent<HTMLCanvasElement>) => {
-    const { offsetX: x, offsetY: y } = nativeEvent;
-    dispatch(beginStroke({ x, y }));
-  };
+  const startDrawing = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
+    const { offsetX: x, offsetY: y } = nativeEvent
+    dispatch(beginStroke({ x, y }))
+  }
 
   const endDrawing = () => {
     if (isDrawing) {
-      dispatch(
-        endStroke({
-          historyLimit: historyIndex,
-          stroke: currentStroke,
-        })
-      );
+      dispatch(endStroke({
+        historyLimit: historyIndex,
+        stroke: currentStroke,
+      }))
     }
-  };
+  }
 
   const draw = ({ nativeEvent }: React.MouseEvent<HTMLCanvasElement>) => {
-    if (!isDrawing) return;
+    if (!isDrawing) return
 
-    const { offsetX: x, offsetY: y } = nativeEvent;
-    dispatch(updateStroke({ x, y }));
-  };
+    const { offsetX: x, offsetY: y } = nativeEvent
+    dispatch(updateStroke({ x, y }))
+  }
 
   return (
     <div className="window wrap">
@@ -83,7 +72,6 @@ export default function App(): JSX.Element {
         </div>
       </div>
       <div className="window-body content">
-        <ModalLayer />
         <canvas
           width={800}
           height={600}
@@ -100,5 +88,6 @@ export default function App(): JSX.Element {
         </section>
       </div>
     </div>
-  );
+  )
 }
+
