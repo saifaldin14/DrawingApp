@@ -4,6 +4,11 @@ import { setStrokeColor } from "./actions";
 import COLORS from "./colors";
 
 export const ColorPanel = () => {
+  const dispatch = useDispatch();
+
+  const onColorChange = (color: string) => {
+    dispatch(setStrokeColor(color));
+  };
   return (
     <div className="window colors-panel">
       <div className="title-bar">
