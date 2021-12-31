@@ -39,14 +39,24 @@ function App() {
 
   useEffect(() => {
     const { context } = getCanvasWithContext();
-    if (!context) {
-      return;
-    }
+    if (!context) return;
 
     requestAnimationFrame(() =>
       drawStroke(context, currentStroke.points, currentStroke.color)
     );
   }, [currentStroke]);
+
+  useEffect(() => {
+    const { canvas, context } = getCanvasWithContext();
+    if (!context || !canvas) return;
+
+    requestAnimationFrame(() => {
+      clearCanvas(canvas);
+      strokes.slice(0, strokes.length - historyIndex).forEach((stroke) => {
+        drawStroke(context, stroke.points, stroke.color);
+      });
+    });
+  }, [historyIndex]);
 
   return (
     <>
